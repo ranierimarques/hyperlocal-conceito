@@ -11,20 +11,15 @@ const Context = createContext<boolean>(false);
 |-----------------------------------------------------------------------------
 */
 
-const Group = forwardRef<
-  React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div"> & {
-    children: React.ReactNode;
-  }
->(function Group({ className, ...props }, ref) {
+type GroupProps = React.ComponentProps<"div"> & {
+  children: React.ReactNode;
+};
+
+function Group({ className, ...props }: GroupProps) {
   return (
-    <div
-      ref={ref}
-      className={twMerge("flex flex-col gap-2", className)}
-      {...props}
-    />
+    <div className={twMerge("flex flex-col gap-2", className)} {...props} />
   );
-});
+}
 
 /*
 |-----------------------------------------------------------------------------
@@ -32,16 +27,14 @@ const Group = forwardRef<
 |-----------------------------------------------------------------------------
 */
 
-const Label = forwardRef<
-  React.ElementRef<typeof RadixLabel.Root>,
-  React.ComponentProps<typeof RadixLabel.Root> & {
-    htmlFor: string;
-    children: React.ReactNode;
-  }
->(function Label({ className, ...props }, ref) {
+type LabelProps = React.ComponentProps<typeof RadixLabel.Root> & {
+  htmlFor: string;
+  children: React.ReactNode;
+};
+
+function Label({ className, ...props }: LabelProps) {
   return (
     <RadixLabel.Root
-      ref={ref}
       className={twMerge(
         "mb-2 block w-fit text-xs/none font-medium text-[#404040] has-[+_.TextFieldRoot_:focus]:text-[#0047F6] has-[+_.TextFieldRoot_:disabled]:opacity-30",
         className,
@@ -49,7 +42,7 @@ const Label = forwardRef<
       {...props}
     />
   );
-});
+}
 
 /*
 |-----------------------------------------------------------------------------
@@ -57,19 +50,13 @@ const Label = forwardRef<
 |-----------------------------------------------------------------------------
 */
 
-const Root = forwardRef<
-  React.ElementRef<"div">,
-  {
-    children: React.ReactNode;
-    className?: string;
-    variant?: "blue" | "red";
-  } & {
-    [key: string]: unknown;
-  }
->(function Root({ className, children, ...props }, ref) {
+type RootProps = React.ComponentProps<"div"> & {
+  children: React.ReactNode;
+};
+
+function Root({ className, children, ...props }: RootProps) {
   return (
     <div
-      ref={ref}
       className={twMerge(
         "TextFieldRoot rounded-xs shadow-neutral-main has-[:autofill]:bg-neutral-lighter has-[:disabled]:bg-neutral-lighter has-[:focus]:shadow-primary-main has-[[data-status=error]]:shadow-status-error-default has-[[data-status=success]]:shadow-status-success-default peer flex cursor-text items-center shadow-[0_0_0_1px] has-[:disabled]:cursor-not-allowed has-[:disabled]:shadow-[none]",
         className,
@@ -111,10 +98,10 @@ const Root = forwardRef<
       }}
       {...props}
     >
-      <Context.Provider value={true}>{children}</Context.Provider>
+      <Context value={true}>{children}</Context>
     </div>
   );
-});
+}
 
 /*
 |-----------------------------------------------------------------------------
@@ -122,18 +109,16 @@ const Root = forwardRef<
 |-----------------------------------------------------------------------------
 */
 
-const Input = forwardRef<
-  React.ElementRef<"input">,
-  React.ComponentPropsWithoutRef<"input"> & {
-    status?: "error" | "success";
-  }
->(function Input({ disabled, status, className, type, ...props }, ref) {
+type InputProps = React.ComponentProps<"input"> & {
+  status?: "error" | "success";
+};
+
+function Input({ disabled, status, className, type, ...props }: InputProps) {
   const context = useContext(Context);
   const hasRoot = context !== false;
 
   return (
     <input
-      ref={ref}
       data-status={disabled ? undefined : status}
       disabled={disabled}
       type={type}
@@ -146,7 +131,7 @@ const Input = forwardRef<
       {...props}
     />
   );
-});
+}
 
 /*
 |-----------------------------------------------------------------------------
@@ -154,28 +139,26 @@ const Input = forwardRef<
 |-----------------------------------------------------------------------------
 */
 
-const Icon = forwardRef<
-  React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div"> & {
-    children: React.ReactNode;
-  }
->(function Icon({ className, onClick, ...props }, ref) {
+type IconProps = React.ComponentProps<"div"> & {
+  children: React.ReactNode;
+};
+
+function Icon({ className, onClick, ...props }: IconProps) {
   const Component = (onClick ? "button" : Slot) as React.ElementType;
+  const buttonProps = onClick && { type: "button", onClick };
 
   return (
     <Component
-      ref={ref}
-      onClick={onClick}
       className={twMerge(
         "px-4 py-3 text-[#808080] first:pr-2.5 last:pl-2.5",
         !onClick && "box-content",
         className,
       )}
-      {...(onClick && { type: "button" })}
+      {...buttonProps}
       {...props}
     />
   );
-});
+}
 
 /*
 |-----------------------------------------------------------------------------
@@ -183,15 +166,13 @@ const Icon = forwardRef<
 |-----------------------------------------------------------------------------
 */
 
-const Helper = forwardRef<
-  React.ElementRef<"span">,
-  React.ComponentPropsWithoutRef<"span"> & {
-    children: React.ReactNode;
-  }
->(function Helper({ className, ...props }, ref) {
+type HelperProps = React.ComponentProps<"span"> & {
+  children: React.ReactNode;
+};
+
+function Helper({ className, ...props }: HelperProps) {
   return (
     <span
-      ref={ref}
       className={twMerge(
         ".TextFieldHelper mt-inset-x2s font-base text-x2s/md font-regular text-neutral-dark peer-has-[[data-status=error]]:text-status-error-default peer-has-[[data-status=success]]:text-status-success-default block empty:mt-auto",
         className,
@@ -199,7 +180,7 @@ const Helper = forwardRef<
       {...props}
     />
   );
-});
+}
 
 // Exports
 

@@ -1,5 +1,5 @@
 import * as RadixLabel from "@radix-ui/react-label";
-import { createContext, forwardRef, useContext } from "react";
+import { createContext, useContext } from "react";
 import { twMerge } from "tailwind-merge";
 import { Slot } from "@radix-ui/react-slot";
 
@@ -36,7 +36,9 @@ function Label({ className, ...props }: LabelProps) {
   return (
     <RadixLabel.Root
       className={twMerge(
-        "mb-2 block w-fit text-xs/none font-medium text-[#404040] has-[+_.TextFieldRoot_:focus]:text-[#0047F6] has-[+_.TextFieldRoot_:disabled]:opacity-30",
+        "mb-2 block w-fit text-xs/none font-medium text-[#404040]",
+        "has-[+_.TextFieldRoot_:disabled]:opacity-30",
+        "has-[+_.TextFieldRoot_:focus]:text-[#0047F6]",
         className,
       )}
       {...props}
@@ -58,7 +60,13 @@ function Root({ className, children, ...props }: RootProps) {
   return (
     <div
       className={twMerge(
-        "TextFieldRoot rounded-xs shadow-neutral-main has-[:autofill]:bg-neutral-lighter has-[:disabled]:bg-neutral-lighter has-[:focus]:shadow-primary-main has-[[data-status=error]]:shadow-status-error-default has-[[data-status=success]]:shadow-status-success-default peer flex cursor-text items-center shadow-[0_0_0_1px] has-[:disabled]:cursor-not-allowed has-[:disabled]:shadow-[none]",
+        "TextFieldRoot",
+        "peer flex cursor-text items-center rounded ring ring-blue-400",
+        "has-data-[status=success]:shadow-green-100",
+        "has-data-[status=error]:shadow-red-100",
+        "has-focus:shadow-sm",
+        "has-autofill:bg-[#c7c7c7]",
+        "has-disabled:cursor-not-allowed has-disabled:bg-[#c7c7c7] has-disabled:shadow-none",
         className,
       )}
       onPointerDown={(event) => {
@@ -123,7 +131,12 @@ function Input({ disabled, status, className, type, ...props }: InputProps) {
       disabled={disabled}
       type={type}
       className={twMerge(
-        "TextFieldInput py-inset-xs text-neutral-darkest placeholder:text-neutral-dark first:pl-inset-md last:pr-inset-md only:px-inset-md w-full bg-[transparent] outline-none autofill:bg-clip-text disabled:cursor-not-allowed",
+        "TextFieldInput",
+        "w-full bg-transparent py-3 text-[#161616] outline-none",
+        "first:pl-4 last:pr-4 only:px-4",
+        "placeholder:text-neutral-dark",
+        "autofill:bg-clip-text",
+        "disabled:cursor-not-allowed",
         type === "date" && "h-12 [&::-webkit-calendar-picker-indicator]:hidden",
         hasRoot ? "bg-blue-500" : "bg-red-500",
         className,
@@ -150,7 +163,8 @@ function Icon({ className, onClick, ...props }: IconProps) {
   return (
     <Component
       className={twMerge(
-        "px-4 py-3 text-[#808080] first:pr-2.5 last:pl-2.5",
+        "py-3 px-4 text-[#808080]",
+        "first:pr-2.5 last:pl-2.5",
         !onClick && "box-content",
         className,
       )}
@@ -174,7 +188,11 @@ function Helper({ className, ...props }: HelperProps) {
   return (
     <span
       className={twMerge(
-        ".TextFieldHelper mt-inset-x2s font-base text-x2s/md font-regular text-neutral-dark peer-has-[[data-status=error]]:text-status-error-default peer-has-[[data-status=success]]:text-status-success-default block empty:mt-auto",
+        "TextFieldHelper",
+        "text-neutral-dark mt-2 block",
+        "peer-has-data-[status=success]:text-green-100",
+        "peer-has-data-[status=error]:text-red-100",
+        "empty:mt-auto",
         className,
       )}
       {...props}

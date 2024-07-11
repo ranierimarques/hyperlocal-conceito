@@ -10,4 +10,5 @@
     ["tw`([^`]*)`"],
     // ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"], // tailwind-variants
   ],
+  "tailwindCSS.experimental.configFile": "./src/app/globals.css"
 }

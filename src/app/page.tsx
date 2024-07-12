@@ -5,7 +5,8 @@ import * as Svg from "./svgs";
 import { TextField } from "@/design-system/text-field";
 
 export default function Home() {
-  const [value, setValue] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   function handleToggleVisibility() {
     console.log("toggle");
@@ -26,23 +27,27 @@ export default function Home() {
 
           <TextField.Group>
             <TextField.Label htmlFor="email">Email</TextField.Label>
+            <TextField.Input
+              id="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Digite seu email"
+            />
+          </TextField.Group>
+
+          <TextField.Group>
+            <TextField.Label htmlFor="password">Senha</TextField.Label>
             <TextField.Root>
               <TextField.Input
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
+                id="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="Digite sua senha"
               />
               <TextField.Icon>
                 <Svg.Eye />
               </TextField.Icon>
             </TextField.Root>
-          </TextField.Group>
-
-          <TextField.Group>
-            <TextField.Label htmlFor="email">Email</TextField.Label>
-            <TextField.Input
-              value={value}
-              onChange={(event) => setValue(event.target.value)}
-            />
           </TextField.Group>
         </div>
 

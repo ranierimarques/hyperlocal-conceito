@@ -16,9 +16,7 @@ type GroupProps = React.ComponentProps<"div"> & {
 };
 
 function Group({ className, ...props }: GroupProps) {
-  return (
-    <div className={twMerge("flex flex-col gap-2", className)} {...props} />
-  );
+  return <div className={twMerge("group", className)} {...props} />;
 }
 
 /*
@@ -36,9 +34,9 @@ function Label({ className, ...props }: LabelProps) {
   return (
     <RadixLabel.Root
       className={twMerge(
-        "mb-2 block w-fit text-xs/none font-medium text-[#404040]",
-        "has-[+_.TextFieldRoot_:disabled]:opacity-30",
-        "has-[+_.TextFieldRoot_:focus]:text-[#0047F6]",
+        "mb-2 block w-fit text-base/none font-medium tracking-[0.4px] text-[#404040]",
+        "group-has-disabled:opacity-30",
+        "group-has-focus:text-[#0047F6]",
         className,
       )}
       {...props}
@@ -60,11 +58,10 @@ function Root({ className, children, ...props }: RootProps) {
   return (
     <div
       className={twMerge(
-        "TextFieldRoot",
-        "peer flex cursor-text items-center rounded ring ring-blue-400",
+        "flex cursor-text items-center rounded ring ring-blue-400",
         "has-data-[status=success]:shadow-green-100",
         "has-data-[status=error]:shadow-red-100",
-        "has-focus:shadow-sm",
+        "has-focus:bg-blue-100",
         "has-autofill:bg-[#c7c7c7]",
         "has-disabled:cursor-not-allowed has-disabled:bg-[#c7c7c7] has-disabled:shadow-none",
         className,
@@ -74,9 +71,7 @@ function Root({ className, children, ...props }: RootProps) {
         if (target.closest("input, button, a")) return;
 
         const input =
-          event.currentTarget.querySelector<HTMLInputElement>(
-            ".TextFieldInput",
-          );
+          event.currentTarget.querySelector<HTMLInputElement>(".ds-input");
         if (!input) return;
 
         if (input.type === "date") {
@@ -131,14 +126,14 @@ function Input({ disabled, status, className, type, ...props }: InputProps) {
       disabled={disabled}
       type={type}
       className={twMerge(
-        "TextFieldInput",
+        "ds-input",
         "w-full bg-transparent py-3 text-[#161616] outline-none",
         "first:pl-4 last:pr-4 only:px-4",
         "placeholder:text-neutral-dark",
         "autofill:bg-clip-text",
         "disabled:cursor-not-allowed",
         type === "date" && "h-12 [&::-webkit-calendar-picker-indicator]:hidden",
-        hasRoot ? "bg-blue-500" : "bg-red-500",
+        hasRoot ? "a" : "b",
         className,
       )}
       {...props}
@@ -188,10 +183,9 @@ function Helper({ className, ...props }: HelperProps) {
   return (
     <span
       className={twMerge(
-        "TextFieldHelper",
-        "text-neutral-dark mt-2 block",
-        "peer-has-data-[status=success]:text-green-100",
-        "peer-has-data-[status=error]:text-red-100",
+        "mt-2 block text-black",
+        "group-has-data-[status=success]:text-green-400",
+        "group-has-data-[status=error]:text-red-400",
         "empty:mt-auto",
         className,
       )}

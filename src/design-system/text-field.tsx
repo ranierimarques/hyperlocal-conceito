@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 import { twMerge } from "tailwind-merge";
 import { Slot } from "@radix-ui/react-slot";
 
-const Context = createContext<boolean>(false);
+const Context = createContext<0 | 1>(0);
 
 /*
 |-----------------------------------------------------------------------------
@@ -16,7 +16,12 @@ type GroupProps = React.ComponentProps<"div"> & {
 };
 
 function Group({ className, ...props }: GroupProps) {
-  return <div className={twMerge("group", className)} {...props} />;
+  return (
+    <div
+      className={twMerge("group flex flex-col gap-2", className)}
+      {...props}
+    />
+  );
 }
 
 /*
@@ -34,9 +39,8 @@ function Label({ className, ...props }: LabelProps) {
   return (
     <RadixLabel.Root
       className={twMerge(
-        "mb-2 block w-fit text-base/none font-medium tracking-[0.4px] text-[#404040]",
+        "block w-fit text-base/none font-medium tracking-[0.4px] text-[#404040]",
         "group-has-disabled:opacity-30",
-        "group-has-focus:text-[#0047F6]",
         className,
       )}
       {...props}
@@ -58,11 +62,11 @@ function Root({ className, children, ...props }: RootProps) {
   return (
     <div
       className={twMerge(
-        "flex cursor-text items-center rounded ring ring-blue-400",
+        "flex cursor-text items-center rounded-[5px] inset-ring shadow-[0_4px_8px_#ccc3] inset-ring-[#D9D9D9] outline-2 outline-offset-2",
         "has-data-[status=success]:shadow-green-100",
         "has-data-[status=error]:shadow-red-100",
-        "has-focus:bg-blue-100",
-        "has-autofill:bg-[#c7c7c7]",
+        "has-[.ds-input:focus]:inset-ring-[#afafaf]",
+        "has-autofill:bg-[#F7F9FE]",
         "has-disabled:cursor-not-allowed has-disabled:bg-[#c7c7c7] has-disabled:shadow-none",
         className,
       )}
@@ -101,7 +105,7 @@ function Root({ className, children, ...props }: RootProps) {
       }}
       {...props}
     >
-      <Context value={true}>{children}</Context>
+      <Context value={1}>{children}</Context>
     </div>
   );
 }
@@ -118,7 +122,7 @@ type InputProps = React.ComponentProps<"input"> & {
 
 function Input({ disabled, status, className, type, ...props }: InputProps) {
   const context = useContext(Context);
-  const hasRoot = context !== false;
+  const onlyInput = context === 0;
 
   return (
     <input
@@ -127,13 +131,17 @@ function Input({ disabled, status, className, type, ...props }: InputProps) {
       type={type}
       className={twMerge(
         "ds-input",
-        "w-full bg-transparent py-3 text-[#161616] outline-none",
-        "first:pl-4 last:pr-4 only:px-4",
-        "placeholder:text-neutral-dark",
+        "w-full border-none bg-transparent py-3 text-base/normal text-[#161616] caret-[#0047F6] outline-none",
+        "first:pl-4 last:pr-4",
+        "placeholder:text-[#808080]",
         "autofill:bg-clip-text",
         "disabled:cursor-not-allowed",
         type === "date" && "h-12 [&::-webkit-calendar-picker-indicator]:hidden",
-        hasRoot ? "a" : "b",
+        onlyInput && [
+          "rounded-[5px] px-4 inset-shadow-[0_0_0_1px_#D9D9D9] shadow-[0_4px_8px_#ccc3]",
+          "autofill:inset-ring-[2rem] autofill:inset-ring-[#F7F9FE]",
+          "focus:inset-shadow-[#afafaf]",
+        ],
         className,
       )}
       {...props}
@@ -158,9 +166,9 @@ function Icon({ className, onClick, ...props }: IconProps) {
   return (
     <Component
       className={twMerge(
-        "py-3 px-4 text-[#808080]",
+        "shrink-0 py-3 px-4 text-[#808080]",
         "first:pr-2.5 last:pl-2.5",
-        !onClick && "box-content",
+        onClick ? "cursor-pointer" : "box-content",
         className,
       )}
       {...buttonProps}

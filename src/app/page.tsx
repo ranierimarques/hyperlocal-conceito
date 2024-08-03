@@ -3,6 +3,7 @@
 import { useState } from "react";
 import * as Svg from "./svgs";
 import { TextField } from "@/design-system/text-field";
+import Link from "next/link";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -72,9 +73,12 @@ export default function Home() {
           <TextField.Group className="mb-10">
             <div className="flex justify-between">
               <TextField.Label htmlFor="password">Senha</TextField.Label>
-              <a href="#" className="text-sm/none text-[#808080]">
+              <Link
+                href="#"
+                className="text-sm/none text-[#808080] underline-offset-3 hover:underline"
+              >
                 Esqueci minha senha
-              </a>
+              </Link>
             </div>
             <TextField.Root>
               <TextField.Input
@@ -85,7 +89,7 @@ export default function Home() {
                 placeholder="Digite sua senha"
               />
               <TextField.Icon
-                aria-label="Mostrar/ocultar senha"
+                aria-label={`${showPassword ? "Ocultar" : "Mostrar"} senha`}
                 onClick={() => setShowPassword((oldValue) => !oldValue)}
               >
                 {showPassword ? <Svg.Eye /> : <Svg.EyeSlash />}
@@ -93,19 +97,25 @@ export default function Home() {
             </TextField.Root>
           </TextField.Group>
 
-          <button className="mb-16 w-full cursor-pointer rounded-[5px] bg-[#0047F6] py-3 px-6 text-base/normal font-medium text-white shadow-[0_4px_8px] shadow-[#0047F6]/20">
+          <button className="mb-16 w-full cursor-pointer rounded-[5px] bg-[#0047F6] py-3 px-6 text-base/normal font-medium text-white shadow-[0_4px_8px] shadow-[#0047F6]/20 transition hover:bg-[#0031AA]">
             Entrar
           </button>
 
           <span className="block text-balance text-center text-sm/normal text-[#808080]">
             Ao criar uma conta você concorda com nossos{" "}
-            <a href="#" className="text-[#3874FA] underline underline-offset-3">
+            <Link
+              href="#"
+              className="text-[#3874FA] underline underline-offset-3 transition-[color] hover:text-[#0044DD]"
+            >
               Termos de Serviços
-            </a>{" "}
+            </Link>{" "}
             e nossa{" "}
-            <a href="#" className="text-[#3874FA] underline underline-offset-3">
+            <Link
+              href="#"
+              className="text-[#3874FA] underline underline-offset-3 transition-[color] hover:text-[#0044DD]"
+            >
               Política de Privacidade
-            </a>
+            </Link>
             .
           </span>
         </div>

@@ -62,7 +62,7 @@ function Root({ className, children, ...props }: RootProps) {
   return (
     <div
       className={twMerge(
-        "flex cursor-text items-center rounded-[5px] inset-ring shadow-[0_4px_8px_#ccc3] inset-ring-[#D9D9D9] outline-2 outline-offset-2",
+        "flex cursor-text items-center rounded-[5px] inset-ring shadow-[0_4px_8px_#ccc3] inset-ring-[#D9D9D9] transition-shadow",
         "has-data-[status=success]:shadow-green-100",
         "has-data-[status=error]:shadow-red-100",
         "has-[.ds-input:focus]:inset-ring-[#afafaf]",

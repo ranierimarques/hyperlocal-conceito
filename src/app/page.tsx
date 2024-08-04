@@ -1,17 +1,11 @@
-"use client";
-
-import { useState } from "react";
 import * as Svg from "./svgs";
-import { TextField } from "@/design-system/text-field";
-import Link from "next/link";
+
+import { LoginProvider } from "@/contexts/login";
+import { Login } from "@/components/login";
 
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
   return (
-    <main className="flex h-full items-center text-white">
+    <main className="flex h-full items-center">
       <div className="h-full flex-1 bg-[linear-gradient(323.43deg,#0B1551_0%,#070E36_91.69%)]">
         <div className="relative flex h-full items-center justify-center bg-[url('./texture.png')] bg-contain">
           <Svg.HyperlocalLogoWhite className="absolute top-12 left-12" />
@@ -26,7 +20,7 @@ export default function Home() {
 
             <Svg.HyperlocalIllustration className="mr-4 mb-16" />
 
-            <h2 className="mb-6 text-xl/tight">
+            <h2 className="mb-6 text-xl/tight text-white">
               Tudo que você precisa em um banco
             </h2>
             <h3 className="font-light text-[#CCE1FF]">
@@ -53,72 +47,9 @@ export default function Home() {
       <div className="relative flex h-full w-[576px] flex-col items-center justify-center border-l border-[#F2F2F2] bg-white shadow-[0_4px_15px_rgba(0,0,0,0.6)]">
         <Svg.HyperlocalLogoColorful className="absolute top-16" />
 
-        <div className="w-full px-[88px]">
-          <h1 className="mb-14 text-center text-[22px]/none font-medium text-[#212121]">
-            Acesse sua conta
-          </h1>
-
-          <TextField.Group className="mb-8">
-            <TextField.Label htmlFor="email">Email</TextField.Label>
-            <TextField.Input
-              id="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="Digite seu email"
-              spellCheck="false"
-              type="email"
-            />
-          </TextField.Group>
-
-          <TextField.Group className="mb-10">
-            <div className="flex justify-between">
-              <TextField.Label htmlFor="password">Senha</TextField.Label>
-              <Link
-                href="#"
-                className="text-sm/none text-[#808080] underline-offset-3 hover:underline"
-              >
-                Esqueci minha senha
-              </Link>
-            </div>
-            <TextField.Root>
-              <TextField.Input
-                id="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                type={showPassword ? "text" : "password"}
-                placeholder="Digite sua senha"
-              />
-              <TextField.Icon
-                aria-label={`${showPassword ? "Ocultar" : "Mostrar"} senha`}
-                onClick={() => setShowPassword((oldValue) => !oldValue)}
-              >
-                {showPassword ? <Svg.Eye /> : <Svg.EyeSlash />}
-              </TextField.Icon>
-            </TextField.Root>
-          </TextField.Group>
-
-          <button className="mb-16 w-full cursor-pointer rounded-[5px] bg-[#0047F6] py-3 px-6 text-base/normal font-medium text-white shadow-[0_4px_8px] shadow-[#0047F6]/20 transition hover:bg-[#0031AA]">
-            Entrar
-          </button>
-
-          <span className="block text-balance text-center text-sm/normal text-[#808080]">
-            Ao criar uma conta você concorda com nossos{" "}
-            <Link
-              href="#"
-              className="text-[#3874FA] underline underline-offset-3 transition-[color] hover:text-[#0044DD]"
-            >
-              Termos de Serviços
-            </Link>{" "}
-            e nossa{" "}
-            <Link
-              href="#"
-              className="text-[#3874FA] underline underline-offset-3 transition-[color] hover:text-[#0044DD]"
-            >
-              Política de Privacidade
-            </Link>
-            .
-          </span>
-        </div>
+        <LoginProvider>
+          <Login />
+        </LoginProvider>
 
         <span className="absolute bottom-10 block text-[13px]/[20px] tracking-[-0.2px] text-[#A6A6A6]">
           © 2024 Hyperlocal <span className="text-[#BFBFBF]">•</span> Todos os

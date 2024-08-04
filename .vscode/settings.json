@@ -1,7 +1,10 @@
 {
   "cSpell.words": [
     "Avec",
-    "svgs"
+    "clsx",
+    "sonner",
+    "svgs",
+    "totp"
   ],
   "tailwindCSS.experimental.classRegex": [
     ["(?:twMerge|twJoin)\\(([^;]*)[\\);]", "[`'\"`]([^'\"`;]*)[`'\"`]"],

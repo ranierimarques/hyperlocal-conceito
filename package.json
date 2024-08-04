@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.0",
+    "clsx": "^2.1.1",
+    "input-otp": "^1.2.4",
     "next": "^15.0.0-rc.0",
     "react": "^19.0.0-rc-c3cdbec0a7-20240708",
     "react-dom": "^19.0.0-rc-c3cdbec0a7-20240708",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
